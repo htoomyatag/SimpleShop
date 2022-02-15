@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   resources :user_roles
   resources :users
   resources :taxes
@@ -15,5 +16,7 @@ Rails.application.routes.draw do
         resources :currencies, only: [:index, :create, :destroy, :update]
     end
   end
+
+  devise_for :users, controllers: {sessions: 'users/sessions',registrations: 'users/registrations'}
 
 end

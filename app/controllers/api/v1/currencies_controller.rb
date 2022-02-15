@@ -1,4 +1,7 @@
 class Api::V1::CurrenciesController < Api::V1::BaseController
+
+  before_action :authenticate_user!
+
   def index
     respond_with Currency.all
   end

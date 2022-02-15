@@ -1,37 +1,16 @@
-<p id="notice"><%= notice %></p>
+<h2>All Products</h2>
 
-<h1>Products</h1>
+<% @products.each do |product| %>
+  <p>Name: <%= product.title %>; unit price of <%= number_to_currency(product.price) %></p>
+  <p>
+    <%= link_to "Edit", edit_product_path(product) %> |
+    <%= link_to "Delete", product_path(product), method: :delete, data: {confirm: "Are you sure?"} %>
+    <%= button_to "Add #{product.title} to cart", line_items_path(:product_id => product.id) %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Image url</th>
-      <th>Price</th>
-      <th>Sku</th>
-      <th>Stock</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  
 
-  <tbody>
-    <% @products.each do |product| %>
-      <tr>
-        <td><%= product.title %></td>
-        <td><%= product.description %></td>
-        <td><%= product.image_url %></td>
-        <td><%= product.price %></td>
-        <td><%= product.sku %></td>
-        <td><%= product.stock %></td>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    
+  </p>
+<% end %>
 
-<br>
-
-<%= link_to 'New Product', new_product_path %>
+<%= link_to "New product", new_product_path %>

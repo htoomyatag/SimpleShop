@@ -1,6 +1,6 @@
 class Api::V1::PostsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :is_admins?, only: [:index]
+  #before_action :authenticate_user!
+  #before_action :is_admins?, only: [:index]
   skip_before_action :verify_authenticity_token
   before_action :set_api_v1_post, only: %i[ show edit update destroy ]
 

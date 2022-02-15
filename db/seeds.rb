@@ -43,4 +43,16 @@ regions = Region.create([
 ])
 
 
+users = User.create([
+	{ email: 'Adminhtoo', password:"password", user_role_id:"1" }, 
+	{ email: 'Customerhtoo', password:"password", user_role_id:"2" }
+])
+
+
+
+user_roles = UserRole.create([
+	{ title: 'Admin', description:"These users are responsible to manage regions, products." }, 
+	{ title: 'Customer', description:"Basic users who can signup and login with email and password." }
+])
+
 

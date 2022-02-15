@@ -23,9 +23,9 @@ countries = Country.create([
 
 
 taxes = Tax.create([
-	{ title: '7 percents', tax_code:"thai" }, 
-	{ title: '5 percents', tax_code:"japan" }, 
-	{ title: '10 percents', tax_code:"singapore" }
+	{ title: '7 percents', tax_category:"Sales Tax" }, 
+	{ title: '5 percents', tax_category:"Sales Tax" }, 
+	{ title: '10 percents', tax_category:"Sales Tax" }
 ])
 
 

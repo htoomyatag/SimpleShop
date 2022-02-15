@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   
 
+  get 'checkout/purchase'
+  get 'checkout/payment_option'
   namespace :api do
     namespace :v1 do
       resources :posts

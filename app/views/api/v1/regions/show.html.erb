@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @api_v1_region.title %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @api_v1_region.country_id %>
+</p>
+
+<p>
+  <strong>Currency:</strong>
+  <%= @api_v1_region.currency_id %>
+</p>
+
+<p>
+  <strong>Tax:</strong>
+  <%= @api_v1_region.tax_id %>
+</p>
+
+<%= link_to 'Edit', edit_api_v1_region_path(@api_v1_region) %> |
+<%= link_to 'Back', api_v1_regions_path %>

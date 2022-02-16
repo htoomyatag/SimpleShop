@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Api V1 Currencies</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Currency code</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @api_v1_currencies.each do |api_v1_currency| %>
+      <tr>
+        <td><%= api_v1_currency.title %></td>
+        <td><%= api_v1_currency.currency_code %></td>
+        <td><%= link_to 'Show', api_v1_currency %></td>
+        <td><%= link_to 'Edit', edit_api_v1_currency_path(api_v1_currency) %></td>
+        <td><%= link_to 'Destroy', api_v1_currency, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Api V1 Currency', new_api_v1_currency_path %>

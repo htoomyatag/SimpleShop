@@ -1,0 +1,27 @@
+<%= form_with(model: api_v1_tax) do |form| %>
+  <% if api_v1_tax.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(api_v1_tax.errors.count, "error") %> prohibited this api_v1_tax from being saved:</h2>
+
+      <ul>
+        <% api_v1_tax.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :tax_category %>
+    <%= form.text_field :tax_category %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tax_rate %>
+    <%= form.text_field :tax_rate %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

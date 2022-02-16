@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @api_v1_country.title %>
+</p>
+
+<p>
+  <strong>Country code:</strong>
+  <%= @api_v1_country.country_code %>
+</p>
+
+<%= link_to 'Edit', edit_api_v1_country_path(@api_v1_country) %> |
+<%= link_to 'Back', api_v1_countries_path %>

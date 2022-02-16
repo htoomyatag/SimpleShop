@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Api V1 Regions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Country</th>
+      <th>Currency</th>
+      <th>Tax</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @api_v1_regions.each do |api_v1_region| %>
+      <tr>
+        <td><%= api_v1_region.title %></td>
+        <td><%= api_v1_region.country_id %></td>
+        <td><%= api_v1_region.currency_id %></td>
+        <td><%= api_v1_region.tax_id %></td>
+        <td><%= link_to 'Show', api_v1_region %></td>
+        <td><%= link_to 'Edit', edit_api_v1_region_path(api_v1_region) %></td>
+        <td><%= link_to 'Destroy', api_v1_region, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Api V1 Region', new_api_v1_region_path %>

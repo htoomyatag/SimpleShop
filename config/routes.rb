@@ -1,27 +1,21 @@
 Rails.application.routes.draw do
   
-
   get 'checkout/purchase'
   get 'checkout/payment_option'
   namespace :api do
     namespace :v1 do
-      resources :posts
+        resources :posts
+        resources :countries
+        resources :taxes
+        resources :stores
+        resources :regions
+        resources :currencies
+        resources :countries
     end
   end
   #resources :users
-  resources :taxes
-  resources :stores
-  resources :regions
-  resources :currencies
-  resources :countries
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-    get '/admin_panel', to: 'admin_dashboard#admin_panel', as: :admin_panel
-
-  namespace :api do
-    namespace :v1 do
-        resources :currencies, only: [:index, :create, :destroy, :update]
-    end
-  end
+  get '/admin_panel', to: 'admin_dashboard#admin_panel', as: :admin_panel
 
   devise_for :users, controllers: {sessions: 'users/sessions',registrations: 'users/registrations'}
 
@@ -37,10 +31,6 @@ Rails.application.routes.draw do
   resources :orders
   resources :line_items
   root 'products#index'
-
-
-
-
 
 
 end

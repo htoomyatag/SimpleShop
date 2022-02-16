@@ -19,49 +19,48 @@ users = User.create([
     User.create email: email,password: password
 end
 
-
-Currency.destroy_all
-curriencies = Currency.create([
+Api::V1::Currency.destroy_all
+curriencies = Api::V1::Currency.create([
 	{ title: 'Thai baht', currency_code:"THB" }, 
 	{ title: 'Japanese yen', currency_code:"JPY" }, 
 	{ title: 'Singapore dollar', currency_code:"SGD" }
 ])
 
-Country.destroy_all
-countries = Country.create([
+Api::V1::Country.destroy_all
+countries = Api::V1::Country.create([
 	{ title: 'Thailand', country_code:"TH" }, 
 	{ title: 'Japan', country_code:"JP" }, 
 	{ title: 'Singapore', country_code:"SG"}
 ])
 
-Tax.destroy_all
-taxes = Tax.create([
+Api::V1::Tax.destroy_all
+taxes = Api::V1::Tax.create([
 	{ tax_rate: 7, tax_category:"Sales Tax" }, 
 	{ tax_rate: 5, tax_category:"Sales Tax" }, 
 	{ tax_rate: 10, tax_category:"Sales Tax" }
 ])
 
 
-Region.destroy_all
-regions = Region.create([
+Api::V1::Region.destroy_all
+regions = Api::V1::Region.create([
 	{ title: 'Southeast Asia', country_id:"1",currency_id:"1",tax_id:"1"}, 
 	{ title: 'Northeast Asia', country_id:"2",currency_id:"2",tax_id:"2"},
 	{ title: 'Southeast Asia', country_id:"3",currency_id:"3",tax_id:"3"},
 ])
 
 
-Store.destroy_all
+Api::V1::Store.destroy_all
 10.times do
 	title = Faker::FunnyName.name
-    Store.create title: title,region_id: 1
+    Api::V1::Store.create title: title,region_id: 1
 end
 10.times do
 	title = Faker::FunnyName.name
-    Store.create title: title,region_id: 2
+    Api::V1::Store.create title: title,region_id: 2
 end
 10.times do
 	title = Faker::FunnyName.name
-    Store.create title: title,region_id: 3
+    Api::V1::Store.create title: title,region_id: 3
 end
 
 30.times do

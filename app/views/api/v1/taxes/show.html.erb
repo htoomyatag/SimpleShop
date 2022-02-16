@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Tax category:</strong>
+  <%= @api_v1_tax.tax_category %>
+</p>
+
+<p>
+  <strong>Tax rate:</strong>
+  <%= @api_v1_tax.tax_rate %>
+</p>
+
+<%= link_to 'Edit', edit_api_v1_tax_path(@api_v1_tax) %> |
+<%= link_to 'Back', api_v1_taxes_path %>

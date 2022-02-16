@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @api_v1_currency.title %>
+</p>
+
+<p>
+  <strong>Currency code:</strong>
+  <%= @api_v1_currency.currency_code %>
+</p>
+
+<%= link_to 'Edit', edit_api_v1_currency_path(@api_v1_currency) %> |
+<%= link_to 'Back', api_v1_currencies_path %>

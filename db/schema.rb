@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_15_080338) do
+ActiveRecord::Schema.define(version: 2022_02_16_050917) do
+
+  create_table "api_v1_countries", force: :cascade do |t|
+    t.string "title"
+    t.string "country_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "api_v1_currencies", force: :cascade do |t|
+    t.string "title"
+    t.string "currency_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "api_v1_posts", force: :cascade do |t|
     t.string "title"
@@ -19,21 +33,30 @@ ActiveRecord::Schema.define(version: 2022_02_15_080338) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "api_v1_regions", force: :cascade do |t|
+    t.string "title"
+    t.integer "country_id"
+    t.integer "currency_id"
+    t.integer "tax_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "api_v1_stores", force: :cascade do |t|
+    t.string "title"
+    t.integer "region_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "api_v1_taxes", force: :cascade do |t|
+    t.string "tax_category"
+    t.decimal "tax_rate"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "carts", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "countries", force: :cascade do |t|
-    t.string "title"
-    t.string "country_code"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "currencies", force: :cascade do |t|
-    t.string "title"
-    t.string "currency_code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -69,29 +92,6 @@ ActiveRecord::Schema.define(version: 2022_02_15_080338) do
     t.decimal "price"
     t.string "sku"
     t.integer "stock"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "regions", force: :cascade do |t|
-    t.string "title"
-    t.integer "country_id"
-    t.integer "currency_id"
-    t.integer "tax_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "stores", force: :cascade do |t|
-    t.string "title"
-    t.integer "region_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "taxes", force: :cascade do |t|
-    t.string "tax_category"
-    t.decimal "tax_rate"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

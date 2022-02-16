@@ -1,2 +1,0 @@
-class Tax < ApplicationRecord
-end

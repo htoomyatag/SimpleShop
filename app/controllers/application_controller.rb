@@ -9,10 +9,11 @@ class ApplicationController < ActionController::Base
 
   def is_admins?
 
-        if current_user.admin == 'true'
-             render json: { message: 'Logged in as admin.' }, status: :ok
+        if current_user.admin == true
+             return true
         else
-             render json: { message: "No access right to perform this action."}, status: :unauthorized
+            render json: { message: "No access right to perform this action."}, status: :unauthorized
+            return false
         end
   end
 

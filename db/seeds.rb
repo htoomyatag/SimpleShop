@@ -5,71 +5,74 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-
-
-curriencies = Currency.create([
-	{ title: 'thai currency', currency_code:"baht" }, 
-	{ title: 'japan currency', currency_code:"yen" }, 
-	{ title: 'singapore currency', currency_code:"dollar" }
-])
-Country.destroy_all
-countries = Country.create([
-	{ title: 'Thailand', country_code:"TH" }, 
-	{ title: 'Japan', country_code:"JP" }, 
-	{ title: 'Singapore', country_code:"SG" }
-])
-
-Tax.destroy_all
-taxes = Tax.create([
-	{ title: '7 percents', tax_category:"Sales Tax" }, 
-	{ title: '5 percents', tax_category:"Sales Tax" }, 
-	{ title: '10 percents', tax_category:"Sales Tax" }
-])
-
-Store.destroy_all
-stores = Store.create([
-	{ title: 'store A', region_id:"1" }, 
-	{ title: 'store B', region_id:"2" }, 
-	{ title: 'store C', region_id:"3" }
-])
-
-Region.destroy_all
-regions = Region.create([
-	{ title: 'Southeast Asia Region', country_id:"1",currency_id:"1",tax_id:"1"}, 
-	{ title: 'Northeast Asia Region', country_id:"2",currency_id:"2",tax_id:"2"},
-	{ title: 'Southeast Asia Region', country_id:"3",currency_id:"3",tax_id:"3"},
-])
+require 'faker'
 
 
 User.destroy_all
 users = User.create([
-	{ email: 'Adminhtoo', password:"password", user_role_id:"1" }, 
-	{ email: 'Customerhtoo', password:"password", user_role_id:"2" }
+	{ email: 'admin@gmail.com', password:"password",admin:true }, 
+	{ email: 'customer@gmail.com', password:"password" }
+])
+20.times do
+	email = Faker::Internet.email
+    password  = "password"
+    User.create email: email,password: password
+end
+
+
+Currency.destroy_all
+curriencies = Currency.create([
+	{ title: 'Thai baht', currency_code:"THB" }, 
+	{ title: 'Japanese yen', currency_code:"JPY" }, 
+	{ title: 'Singapore dollar', currency_code:"SGD" }
+])
+
+Country.destroy_all
+countries = Country.create([
+	{ title: 'Thailand', country_code:"TH" }, 
+	{ title: 'Japan', country_code:"JP" }, 
+	{ title: 'Singapore', country_code:"SG"}
+])
+
+Tax.destroy_all
+taxes = Tax.create([
+	{ tax_rate: 7, tax_category:"Sales Tax" }, 
+	{ tax_rate: 5, tax_category:"Sales Tax" }, 
+	{ tax_rate: 10, tax_category:"Sales Tax" }
 ])
 
 
-UserRole.destroy_all
-user_roles = UserRole.create([
-	{ title: 'Admin', description:"These users are responsible to manage regions, products." }, 
-	{ title: 'Customer', description:"Basic users who can signup and login with email and password." }
+Region.destroy_all
+regions = Region.create([
+	{ title: 'Southeast Asia', country_id:"1",currency_id:"1",tax_id:"1"}, 
+	{ title: 'Northeast Asia', country_id:"2",currency_id:"2",tax_id:"2"},
+	{ title: 'Southeast Asia', country_id:"3",currency_id:"3",tax_id:"3"},
 ])
 
 
-# PRODUCT
-Product.destroy_all
-product1 = Product.create({:title=>"tomato", :price => 1})
-product2 = Product.create({:title=>"milk", :price => 3})
-product3 = Product.create({:title=>"bread", :price => 5.50})
-product4 = Product.create({:title=>"bacon", :price => 10})
-product5 = Product.create({:title=>"cheese", :price => 3.20})
+Store.destroy_all
+10.times do
+	title = Faker::FunnyName.name
+    Store.create title: title,region_id: 1
+end
+10.times do
+	title = Faker::FunnyName.name
+    Store.create title: title,region_id: 2
+end
+10.times do
+	title = Faker::FunnyName.name
+    Store.create title: title,region_id: 3
+end
 
-puts "Total number of products: #{Product.all.count}"
-puts "Product titles: #{Product.all.pluck("title")}"
-puts "Product1: #{product1.title} price: #{product1.price.round(2)}"
-puts "Product2: #{product2.title} price: #{product2.price.round(2)}"
-puts "Product3: #{product3.title} price: #{product3.price.round(2)}"
-puts "Product4: #{product4.title} price: #{product4.price.round(2)}"
-puts "Product5: #{product5.title} price: #{product5.price.round(2)}"
+30.times do
+	title = Faker::Commerce.product_name
+	description = Faker::Commerce.department
+	image_url = Faker::LoremFlickr.image
+	price = Faker::Commerce.price
+	sku = Faker::Alphanumeric.alpha(number: 5).to_s+Faker::Number.within(range: 1..21).to_s
+	stock = 99
+    Product.create title: title, description: description,image_url: image_url,price: price,sku: sku,stock: stock
+end
 
-Cart.destroy_all
+#Cart.destroy_all
+#Order.destroy_all

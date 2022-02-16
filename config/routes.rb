@@ -8,7 +8,6 @@ Rails.application.routes.draw do
       resources :posts
     end
   end
-  resources :user_roles
   resources :users
   resources :taxes
   resources :stores

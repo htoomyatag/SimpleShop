@@ -117,6 +117,9 @@ GEM
     dry-core (0.7.1)
       concurrent-ruby (~> 1.0)
     erubi (1.10.0)
+    eu_central_bank (1.7.0)
+      money (~> 6.13, >= 6.13.6)
+      nokogiri (~> 1.9)
     ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
@@ -139,6 +142,8 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.2)
     minitest (5.15.0)
+    money (6.16.0)
+      i18n (>= 0.6.4, <= 2)
     msgpack (1.4.4)
     nio4r (2.5.8)
     nokogiri (1.13.1-x86_64-linux)
@@ -263,9 +268,11 @@ DEPENDENCIES
   devise
   devise-jwt
   dotenv-rails
+  eu_central_bank
   faker!
   jbuilder (~> 2.7)
   listen (~> 3.3)
+  money (~> 6.7, >= 6.7.1)
   puma (~> 5.0)
   rack-cors
   rack-mini-profiler (~> 2.0)

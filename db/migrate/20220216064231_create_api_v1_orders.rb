@@ -6,7 +6,7 @@ class CreateApiV1Orders < ActiveRecord::Migration[6.1]
       t.text :shipping_address
       t.decimal :order_total
       t.datetime :paid_at
-      t.string :order_status
+      t.string :payment_status, :default => "unpaid"
 
       t.timestamps
     end

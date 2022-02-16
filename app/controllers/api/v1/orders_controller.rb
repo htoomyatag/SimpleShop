@@ -34,6 +34,16 @@ class Api::V1::OrdersController < ApplicationController
     end
   end
 
+  def add_order
+      @api_v1_order = Api::V1::Order.new(
+        :first_name => params[:first_name], 
+        :last_name => params[:last_name],
+        :shipping_address => params[:shipping_address],
+        :order_total => params[:order_total])
+      @api_v1_order.save
+      render json: { message: 'Order Added' }
+  end
+
   # PATCH/PUT /api/v1/orders/1 or /api/v1/orders/1.json
   def update
     respond_to do |format|

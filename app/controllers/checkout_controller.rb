@@ -17,16 +17,19 @@ require 'active_merchant'
                 :password => 'password')
 
     # ActiveMerchant accepts all amounts as Integer values in cents
-    amount = 1000  # $10.00
+    order_total = params[:order_total]
+    amount = (order_total.to_f*100).to_i  # $10.00
+
+    puts amount
 
     # The card verification value is also known as CVV2, CVC2, or CID
     credit_card = ActiveMerchant::Billing::CreditCard.new(
                     :first_name         =>  params[:first_name],
                     :last_name          =>  params[:last_name],
                     :number             =>  params[:number],
-                    :month              => '8',
-                    :year               => Time.now.year+1,
-                    :verification_value => '000')
+                    :month              =>  params[:month],
+                    :year               =>  params[:year],
+                    :verification_value => params[:verification_value])
 
     # Validating the card automatically detects the card type
     if credit_card.validate.empty?
@@ -34,7 +37,12 @@ require 'active_merchant'
       response = gateway.purchase(amount, credit_card)
 
       if response.success?
-        puts "Successfully charged $#{sprintf("%.2f", amount / 100)} to the credit card #{credit_card.display_number}"
+        puts "Successfully charged $#{order_total} to the credit card #{credit_card.display_number}"
+         
+        # @order = Api::V1::Order.find(params[:order_id])
+        # @order.payment_status = "paid"
+        # @order.paid_at = Time.now
+        # @order.save.set(wait: 1.minute).perform_later
       else
         raise StandardError, response.message
       end

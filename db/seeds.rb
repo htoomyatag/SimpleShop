@@ -70,8 +70,8 @@ end
 	price = Faker::Commerce.price
 	sku = Faker::Alphanumeric.alpha(number: 5).to_s+Faker::Number.within(range: 1..21).to_s
 	stock = 99
-    Product.create title: title, description: description,image_url: image_url,price: price,sku: sku,stock: stock
+    Api::V1::Product.create title: title, description: description,image_url: image_url,price: price,sku: sku,stock: stock
 end
 
-#Cart.destroy_all
-#Order.destroy_all
+Api::V1::Cart.destroy_all
+#Api::V1::Order.destroy_all

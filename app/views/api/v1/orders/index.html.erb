@@ -1,0 +1,12 @@
+<h2>All api_v1_orders</h2>
+
+<% @api_v1_orders.each do |api_v1_order| %>
+  <p>Name: <%= api_v1_order.customer_name %></p>
+  <p>total: <%= api_v1_order.order_total %></p>
+  <p>Line Items: </p>
+  <ul>
+    <% api_v1_order.line_items.each do |item| %>
+    <li><%= item.quantity %> x <%= item.api_v1_product.title %></li>
+    <% end %>
+  </ul>
+<% end

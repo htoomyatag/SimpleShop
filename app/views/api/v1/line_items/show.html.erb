@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @api_v1_line_item.quantity %>
+</p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @api_v1_line_item.product_id %>
+</p>
+
+<p>
+  <strong>Cart:</strong>
+  <%= @api_v1_line_item.cart_id %>
+</p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @api_v1_line_item.order_id %>
+</p>
+
+<%= link_to 'Edit', edit_api_v1_line_item_path(@api_v1_line_item) %> |
+<%= link_to 'Back', api_v1_line_items_path %>

@@ -1,12 +1,14 @@
 class Api::V1::CountriesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :is_admins?
+  # before_action :authenticate_user!
+  # before_action :is_admins?
   skip_before_action :verify_authenticity_token
   before_action :set_api_v1_country, only: %i[ show edit update destroy ]
 
   # GET /api/v1/countries or /api/v1/countries.json
   def index
     @api_v1_countries = Api::V1::Country.all
+    render json: @api_v1_countries
+
   end
 
   # GET /api/v1/countries/1 or /api/v1/countries/1.json

@@ -1,4 +1,7 @@
 class Api::V1::TaxesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :is_admins?
+  skip_before_action :verify_authenticity_token
   before_action :set_api_v1_tax, only: %i[ show edit update destroy ]
 
   # GET /api/v1/taxes or /api/v1/taxes.json

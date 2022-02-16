@@ -1,4 +1,7 @@
 class Api::V1::StoresController < ApplicationController
+  before_action :authenticate_user!
+  before_action :is_admins?
+  skip_before_action :verify_authenticity_token
   before_action :set_api_v1_store, only: %i[ show edit update destroy ]
 
   # GET /api/v1/stores or /api/v1/stores.json

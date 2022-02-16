@@ -1,6 +1,6 @@
 class Api::V1::CountriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :is_admins?, only: [:create]
+  before_action :is_admins?
   skip_before_action :verify_authenticity_token
   before_action :set_api_v1_country, only: %i[ show edit update destroy ]
 

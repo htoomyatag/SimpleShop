@@ -35,14 +35,32 @@ class Api::V1::OrdersController < ApplicationController
   end
 
   def add_order
+
+        first_name = params[:first_name], 
+        last_name = params[:last_name],
+        shipping_address = params[:shipping_address],
+        total_amount = calculate_total_amount(params[:cart_id])
+
       @api_v1_order = Api::V1::Order.new(
-        :first_name => params[:first_name], 
-        :last_name => params[:last_name],
-        :shipping_address => params[:shipping_address],
-        :order_total => params[:order_total])
+        :first_name => first_name, 
+        :last_name => last_name,
+        :shipping_address => shipping_address,
+        :order_total => total_amount)
       @api_v1_order.save
       render json: { message: 'Order Added' }
   end
+
+  def calculate_total_amount(cart)
+     sum = 0
+        Api::V1::LineItem.where(:cart_id=>1).each do |line_item|
+          tax_rate = line_item.product.region.tax.tax_rate * line_item.product.price
+          product_price_with_tax = tax_rate + line_item.product.price
+          sum+= line_item.quantity * product_price_with_tax
+        end
+        return sum
+  end
+
+
 
   # PATCH/PUT /api/v1/orders/1 or /api/v1/orders/1.json
   def update

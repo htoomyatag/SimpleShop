@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_16_064256) do
+ActiveRecord::Schema.define(version: 2022_02_16_143539) do
 
   create_table "api_v1_carts", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2022_02_16_064256) do
     t.text "shipping_address"
     t.decimal "order_total"
     t.datetime "paid_at"
-    t.string "order_status"
+    t.string "payment_status", default: "unpaid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 2022_02_16_064256) do
     t.integer "stock"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "region_id"
   end
 
   create_table "api_v1_regions", force: :cascade do |t|

@@ -35,9 +35,9 @@ countries = Api::V1::Country.create([
 
 Api::V1::Tax.destroy_all
 taxes = Api::V1::Tax.create([
-	{ tax_rate: 7, tax_category:"Sales Tax" }, 
-	{ tax_rate: 5, tax_category:"Sales Tax" }, 
-	{ tax_rate: 10, tax_category:"Sales Tax" }
+	{ tax_rate: 0.07, tax_category:"Sales Tax" }, 
+	{ tax_rate: 0.05, tax_category:"Sales Tax" }, 
+	{ tax_rate: 0.10, tax_category:"Sales Tax" }
 ])
 
 
@@ -63,15 +63,36 @@ end
     Api::V1::Store.create title: title,region_id: 3
 end
 
-30.times do
+10.times do
 	title = Faker::Commerce.product_name
 	description = Faker::Commerce.department
 	image_url = Faker::LoremFlickr.image
 	price = Faker::Commerce.price
 	sku = Faker::Alphanumeric.alpha(number: 5).to_s+Faker::Number.within(range: 1..21).to_s
 	stock = 99
-    Api::V1::Product.create title: title, description: description,image_url: image_url,price: price,sku: sku,stock: stock
+    Api::V1::Product.create title: title, description: description,image_url: image_url,price: price,sku: sku,stock: stock, region_id: 1
 end
+
+10.times do
+	title = Faker::Commerce.product_name
+	description = Faker::Commerce.department
+	image_url = Faker::LoremFlickr.image
+	price = Faker::Commerce.price
+	sku = Faker::Alphanumeric.alpha(number: 5).to_s+Faker::Number.within(range: 1..21).to_s
+	stock = 99
+    Api::V1::Product.create title: title, description: description,image_url: image_url,price: price,sku: sku,stock: stock, region_id: 2
+end
+
+10.times do
+	title = Faker::Commerce.product_name
+	description = Faker::Commerce.department
+	image_url = Faker::LoremFlickr.image
+	price = Faker::Commerce.price
+	sku = Faker::Alphanumeric.alpha(number: 5).to_s+Faker::Number.within(range: 1..21).to_s
+	stock = 99
+    Api::V1::Product.create title: title, description: description,image_url: image_url,price: price,sku: sku,stock: stock, region_id: 3
+end
+
 
 Api::V1::Cart.destroy_all
 #Api::V1::Order.destroy_all

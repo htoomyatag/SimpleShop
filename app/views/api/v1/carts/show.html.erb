@@ -1,7 +1,9 @@
 <h2>Cart show</h2>
+
+
 <ul>
   <% @cart.line_items.each do |line_item| %>
-    <li>Item: <%= line_item.product.title %> Price: <%= number_to_currency(line_item.product.price) %>/ Quantity: <%= line_item.quantity %>/ Total Price: <%= number_to_currency(line_item.total_price) %>
+    <li>Item: <%= line_item.product.title %> Price: <%= line_item.product.price %>/ Quantity: <%= line_item.quantity %>/ Total Price: <%= line_item.total_price %>
   
     <ul>
       <li>
@@ -15,7 +17,7 @@
   
   <% end %>
 </ul>
-<h3>Sub total: <%= number_to_currency(@cart.sub_total) %></h3>
+<h3>Sub total: <%= @cart.sub_total %> </h3>
 
 
 

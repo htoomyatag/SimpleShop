@@ -33,11 +33,10 @@ Rails.application.routes.draw do
 
     end
   end
-  #resources :users
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  get '/admin_panel', to: 'admin_dashboard#admin_panel', as: :admin_panel
   devise_for :users, controllers: {sessions: 'users/sessions',registrations: 'users/registrations'}
-
+  post 'change_password' => "users#change_password"
   root 'api/v1/products#index'
 
 

@@ -16,5 +16,8 @@ class Users::SessionsController < Devise::SessionsController
     render json: { message: "Logged out failure."}, status: :unauthorized
   end
 
+  def change_email
+  end
+
 
 end

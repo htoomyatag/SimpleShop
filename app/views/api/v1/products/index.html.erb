@@ -1,6 +1,6 @@
+<h3> Simple Shop </h3>
 
 
-<h2>All Products</h2>
 
 <% @api_v1_products.each do |product| %>
   <p>Name: <%= product.title %>; unit price of <%= product.price %></p>
@@ -11,3 +11,17 @@
     <%= button_to "Add #{product.title} to cart", api_v1_line_items_path(:product_id => product.id) %>    
   </p>
 <% end %>
+
+<div class="list-group">
+  <% @api_v1_products.each do |product| %>
+    <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1"><%= product.title %></h5>
+        <small>3 days ago</small>
+      </div>
+      <p class="mb-1">Some placeholder content in a paragraph.</p>
+      <small>And some small print.</small>
+    </a>
+  <% end %>
+
+</div>

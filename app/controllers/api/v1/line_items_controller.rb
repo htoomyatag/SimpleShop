@@ -1,23 +1,22 @@
 class Api::V1::LineItemsController < ApplicationController
-  before_action :set_api_v1_line_item, only: %i[ show edit update destroy ]
+  before_action :current_cart
   skip_before_action :verify_authenticity_token
 
-  # GET /api/v1/line_items or /api/v1/line_items.json
-  def index
-    @api_v1_line_items = Api::V1::LineItem.all
-  end
 
-  # GET /api/v1/line_items/1 or /api/v1/line_items/1.json
-  def show
-  end
+  def current_cart
+      if session[:cart_id]
+        cart = Api::V1::Cart.find_by(:id => session[:cart_id])
+        if cart.present?
+          @current_cart = cart
+        else
+          session[:cart_id] = nil
+        end
+      end
 
-  # GET /api/v1/line_items/new
-  def new
-    @api_v1_line_item = Api::V1::LineItem.new
-  end
-
-  # GET /api/v1/line_items/1/edit
-  def edit
+      if session[:cart_id] == nil
+        @current_cart = Api::V1::Cart.create
+        session[:cart_id] = @current_cart.id
+      end
   end
 
 
@@ -30,58 +29,49 @@ class Api::V1::LineItemsController < ApplicationController
     if current_cart.products.include?(chosen_product)
       # Find the line_item with the chosen_product
       @api_v1_line_item = current_cart.line_items.find_by(:product_id => chosen_product)
-      # Iterate the line_item's quantity by one
       @api_v1_line_item.quantity += params[:quantity].to_i
     else
       @api_v1_line_item = Api::V1::LineItem.new(:cart_id => current_cart.id,:product_id => chosen_product.id, :quantity => params[:quantity])
     end
-
-    # Save and redirect to cart show path
     @api_v1_line_item.save
-
     @api_v1_line_items = Api::V1::LineItem.where(:cart_id => current_cart.id)
     render json: @api_v1_line_items
   end
 
-
-
-  # POST /api/v1/line_items or /api/v1/line_items.json
-   def create
-    # Find associated product and current cart
-    chosen_product = Api::V1::Product.find(params[:product_id])
-    current_cart = @current_cart
-
-    # If cart already has this product then find the relevant line_item and iterate quantity otherwise create a new line_item for this product
-    if current_cart.products.include?(chosen_product)
-      # Find the line_item with the chosen_product
-      @api_v1_line_item = current_cart.line_items.find_by(:product_id => chosen_product)
-      # Iterate the line_item's quantity by one
-      @api_v1_line_item.quantity += 1
-    else
-      @api_v1_line_item = Api::V1::LineItem.new(:cart_id => current_cart.id,:product_id => chosen_product.id, :quantity => 1)
-    end
-
-    # Save and redirect to cart show path
-    @api_v1_line_item.save
-    redirect_to api_v1_cart_path(current_cart)
-    
-  end
-
   def add_quantity
-    @api_v1_line_item = Api::V1::LineItem.find(params[:id])
-    @api_v1_line_item.quantity += 1
-    @api_v1_line_item.save
-    redirect_to api_v1_cart_path(@current_cart)
+      #add quanity plus one
+      @api_v1_line_item = Api::V1::LineItem.find(params[:id])
+      @api_v1_line_item.quantity += 1
+      @api_v1_line_item.save
+      @api_v1_line_items = Api::V1::LineItem.where(:cart_id => current_cart)
+      render json: @api_v1_line_item
   end
 
   def reduce_quantity
+     #reduce quanity minus one
     @api_v1_line_item = Api::V1::LineItem.find(params[:id])
     if @api_v1_line_item.quantity > 1
       @api_v1_line_item.quantity -= 1
     end
     @api_v1_line_item.save
-    redirect_to api_v1_cart_path(@current_cart)
+    render json: @api_v1_line_item
   end
+
+  def remove_allproduct_in_cart
+      all_product_in_cart = Api::V1::LineItem.where(:cart_id => params[:cart_id])
+      all_product_in_cart.delete_all
+     render json: { message: "all items in cart has been removed" }
+  end
+
+
+  def remove_product_in_cart
+      desire_product = Api::V1::LineItem.where(:product_id => params[:product_id]).where(:cart_id => params[:cart_id])
+      desire_product.delete_all
+      @api_v1_line_items = Api::V1::LineItem.where(:cart_id => params[:cart_id])
+      render json: @api_v1_line_items
+  end
+
+
 
 
 

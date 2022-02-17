@@ -54,7 +54,6 @@ ActiveRecord::Schema.define(version: 2022_02_16_143539) do
   create_table "api_v1_products", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.decimal "order_total"
     t.string "image_url"
     t.decimal "price"
     t.string "sku"

@@ -10,7 +10,6 @@ Rails.application.routes.draw do
 
         post 'line_items/:id/add' => "line_items#add_quantity", as: "line_item_add"
         post 'line_items/:id/reduce' => "line_items#reduce_quantity", as: "line_item_reduce"
-        post 'line_items' => "line_items#create"
         get 'line_items/:id' => "line_items#show", as: "line_item"
         delete 'line_items/:id' => "line_items#destroy"
 
@@ -19,9 +18,6 @@ Rails.application.routes.draw do
         resources :orders
         resources :line_items
     
-
-        post 'add_to_cart' => "line_items#add_to_cart"
-        post 'add_to_order' => "orders#add_to_order"
 
         #For COUNTRY LIST/CREATE/DELETE
         get 'countries' => "countries#index"
@@ -54,8 +50,17 @@ Rails.application.routes.draw do
         post 'add_products' => "products#create"
         delete "remove_products" => "products#remove"
      
-     
-     
+        #Customer ADD PRODUCTS to CART / ADD REDUCE QUANTITY
+        post 'add_to_cart' => "line_items#add_to_cart"
+        post 'add_quantity' => "line_items#add_quantity"
+        post 'reduce_quantity' => "line_items#reduce_quantity"
+        #Customer REMOVE ALL PRODUCES FROM CART
+        post 'remove_allproduct_in_cart' => "line_items#remove_allproduct_in_cart"
+        #Customer REMOVE ONE PRODUCES FROM CART
+        post 'remove_product_in_cart' => "line_items#remove_product_in_cart"
+
+        #customer products in cart to order
+        post 'add_to_order' => "orders#add_to_order"
      
 
 

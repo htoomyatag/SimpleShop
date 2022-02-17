@@ -1,73 +1,27 @@
 class Api::V1::StoresController < ApplicationController
-  before_action :authenticate_user!
-  before_action :is_admins?
+  # before_action :authenticate_user!
+  # before_action :is_admins?
   skip_before_action :verify_authenticity_token
-  before_action :set_api_v1_store, only: %i[ show edit update destroy ]
 
-  # GET /api/v1/stores or /api/v1/stores.json
   def index
-    @api_v1_stores = Api::V1::Store.all
+    @stores = Api::V1::Store.all
+    render json: @stores
   end
 
-  # GET /api/v1/stores/1 or /api/v1/stores/1.json
-  def show
-  end
-
-  # GET /api/v1/stores/new
-  def new
-    @api_v1_store = Api::V1::Store.new
-  end
-
-  # GET /api/v1/stores/1/edit
-  def edit
-  end
-
-  # POST /api/v1/stores or /api/v1/stores.json
   def create
-    @api_v1_store = Api::V1::Store.new(api_v1_store_params)
-
-    respond_to do |format|
-      if @api_v1_store.save
-        format.html { redirect_to api_v1_store_url(@api_v1_store), notice: "Store was successfully created." }
-        format.json { render :show, status: :created, location: @api_v1_store }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @api_v1_store.errors, status: :unprocessable_entity }
-      end
-    end
+    @store = Api::V1::Store.new(store_params)
+    @store.save
+    redirect_to api_v1_stores_path
   end
 
-  # PATCH/PUT /api/v1/stores/1 or /api/v1/stores/1.json
-  def update
-    respond_to do |format|
-      if @api_v1_store.update(api_v1_store_params)
-        format.html { redirect_to api_v1_store_url(@api_v1_store), notice: "Store was successfully updated." }
-        format.json { render :show, status: :ok, location: @api_v1_store }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @api_v1_store.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /api/v1/stores/1 or /api/v1/stores/1.json
-  def destroy
-    @api_v1_store.destroy
-
-    respond_to do |format|
-      format.html { redirect_to api_v1_stores_url, notice: "Store was successfully destroyed." }
-      format.json { head :no_content }
-    end
+  def remove
+     @stores = Api::V1::Store.where(:title => params[:name])
+     @stores.delete_all
+     render json: { message: "#{params[:name]} store removed" }
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_api_v1_store
-      @api_v1_store = Api::V1::Store.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def api_v1_store_params
-      params.require(:api_v1_store).permit(:title, :region_id)
+    def store_params
+      params.require(:store).permit(:title, :region_id)
     end
 end

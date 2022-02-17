@@ -19,8 +19,7 @@ Rails.application.routes.draw do
         resources :products
         resources :orders
         resources :line_items
-        resources :stores
-        resources :regions
+    
 
         post 'add_to_cart' => "line_items#add_to_cart"
         post 'add_to_order' => "orders#add_to_order"
@@ -44,6 +43,12 @@ Rails.application.routes.draw do
         get 'regions' => "regions#index"
         post 'add_regions' => "regions#create"
         delete "remove_regions" => "regions#remove"
+
+        #For STORE LIST/CREATE/DELETE
+        get 'stores' => "stores#index"
+        post 'add_stores' => "stores#create"
+        delete "remove_stores" => "stores#remove"
+     
      
 
 

@@ -1,23 +1,10 @@
 Rails.application.routes.draw do
   
-  post 'checkout/payment'
-  get 'checkout/payment_option'
   namespace :api do
     namespace :v1 do
 
         get 'carts/:id' => "carts#show", as: "cart"
         delete 'carts/:id' => "carts#destroy"
-
-        post 'line_items/:id/add' => "line_items#add_quantity", as: "line_item_add"
-        post 'line_items/:id/reduce' => "line_items#reduce_quantity", as: "line_item_reduce"
-        get 'line_items/:id' => "line_items#show", as: "line_item"
-        delete 'line_items/:id' => "line_items#destroy"
-
- 
-
-        resources :orders
-        resources :line_items
-    
 
         #For COUNTRY LIST/CREATE/DELETE
         get 'countries' => "countries#index"
@@ -58,14 +45,15 @@ Rails.application.routes.draw do
         post 'remove_allproduct_in_cart' => "line_items#remove_allproduct_in_cart"
         #Customer REMOVE ONE PRODUCES FROM CART
         post 'remove_product_in_cart' => "line_items#remove_product_in_cart"
-
-        #customer products in cart to order
+        #customer products in CART to ORDER
         post 'add_to_order' => "orders#add_to_order"
      
 
 
     end
   end
+
+  post 'checkout/payment'
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   devise_for :users, controllers: {sessions: 'users/sessions',registrations: 'users/registrations'}

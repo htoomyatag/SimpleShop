@@ -4,13 +4,7 @@ require 'active_merchant'
 require 'money'
 require 'eu_central_bank'
 
-
-  def payment_option
-
-
-
-  end
-
+  # to get exchange rate bcox test payment provider only accept in USD
   def exchange_currency(order_total,currency_code)
     bank = EuCentralBank.new
     bank.update_rates if bank.last_updated.blank? || bank.last_updated < 1.day.ago
@@ -18,10 +12,7 @@ require 'eu_central_bank'
     Money.new(order_total,currency_code).exchange_to('USD')
   end
 
- 
-
   def payment
-
 
     @order = Api::V1::Order.find(params[:order_id])
     first_name = @order.first_name
@@ -58,10 +49,9 @@ require 'eu_central_bank'
       if response.success?
         puts "Successfully charged $#{amount_in_usd} to the credit card #{credit_card.display_number}"
         order_id = @order.id
+        @order.paid_at = Time.now
+        @order.save
         HardJob.set(wait: 60.seconds).perform_later(order_id)
-        puts "dfffffffffffffffffffffffffff"++@order.id.to_s
-        # @order.paid_at = Time.now
-        # @order.save
       else
         raise StandardError, response.message
       end

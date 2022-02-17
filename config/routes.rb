@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
         resources :products
         resources :orders
-        resources :countries
+        # resources :countries
         resources :line_items
         resources :taxes
         resources :stores
@@ -29,6 +29,10 @@ Rails.application.routes.draw do
         post 'add_to_cart' => "line_items#add_to_cart"
         post 'add_to_order' => "orders#add_to_order"
 
+        post 'add_ountries' => "countries#create"
+        get 'countries' => "countries#index"
+        delete "remove_countries" => "countries#remove"
+
 
 
     end
@@ -37,7 +41,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   devise_for :users, controllers: {sessions: 'users/sessions',registrations: 'users/registrations'}
   post 'change_password' => "users#change_password"
-  root 'api/v1/products#index'
+  post 'change_email' => "users#change_email"
+
 
 
 end

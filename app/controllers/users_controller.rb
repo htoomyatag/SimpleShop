@@ -21,14 +21,17 @@ class UsersController < ApplicationController
 
   def change_email
       
-      @user = User.find_by_email(params[:email])
-      if @user.present?
-           @user.email = "aokaokaoak@gmail.com"
-           @user.password = "12345678"
-           @user.save
-      else
-           render :text => "no such email"
-      end
+      @user = User.find_by_email(current_user.email)
+         
+           if current_user.id == @user.id
+
+             @user.email = params[:new_email]
+             @user.save
+             render json: { message: 'Your Email has been changed.' }
+           else
+              render json: { message: 'No access right to perform this action.' }
+           end
+    
   end
 
   def index

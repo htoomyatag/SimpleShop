@@ -29,7 +29,7 @@ Rails.application.routes.draw do
         post 'add_to_cart' => "line_items#add_to_cart"
         post 'add_to_order' => "orders#add_to_order"
 
-        post 'add_ountries' => "countries#create"
+        post 'add_countries' => "countries#create"
         get 'countries' => "countries#index"
         delete "remove_countries" => "countries#remove"
 

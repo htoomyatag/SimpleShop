@@ -18,21 +18,28 @@ Rails.application.routes.draw do
 
         resources :products
         resources :orders
-        # resources :countries
         resources :line_items
-        resources :taxes
         resources :stores
         resources :regions
-        resources :currencies
-        resources :countries
 
         post 'add_to_cart' => "line_items#add_to_cart"
         post 'add_to_order' => "orders#add_to_order"
 
-        post 'add_countries' => "countries#create"
+        #For COUNTRY LIST/CREATE/DELETE
         get 'countries' => "countries#index"
+        post 'add_countries' => "countries#create"
         delete "remove_countries" => "countries#remove"
+     
+        #For CURRENCY LIST/CREATE/DELETE
+        get 'currencies' => "currencies#index"
+        post 'add_currencies' => "currencies#create"
+        delete "remove_currencies" => "currencies#remove"
 
+        #For TAX LIST/CREATE/DELETE
+        get 'taxes' => "taxes#index"
+        post 'add_taxes' => "taxes#create"
+        delete "remove_taxes" => "taxes#remove"
+     
 
 
     end

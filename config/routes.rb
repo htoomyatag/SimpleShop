@@ -48,6 +48,13 @@ Rails.application.routes.draw do
         get 'stores' => "stores#index"
         post 'add_stores' => "stores#create"
         delete "remove_stores" => "stores#remove"
+
+        #For PRODUCT LIST/CREATE/DELETE
+        get 'products' => "products#index"
+        post 'add_products' => "products#create"
+        delete "remove_products" => "products#remove"
+     
+     
      
      
 

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  get 'checkout/purchase'
+  post 'checkout/payment'
   get 'checkout/payment_option'
   namespace :api do
     namespace :v1 do
@@ -14,7 +14,7 @@ Rails.application.routes.draw do
         get 'line_items/:id' => "line_items#show", as: "line_item"
         delete 'line_items/:id' => "line_items#destroy"
 
-        post 'add_order' => "orders#add_order"
+ 
 
         resources :products
         resources :orders
@@ -25,6 +25,10 @@ Rails.application.routes.draw do
         resources :regions
         resources :currencies
         resources :countries
+
+        post 'add_to_cart' => "line_items#add_to_cart"
+        post 'add_to_order' => "orders#add_to_order"
+
 
 
     end

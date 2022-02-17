@@ -63,3 +63,5 @@ gem 'activemerchant'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 gem 'money', '~> 6.7', '>= 6.7.1'
 gem 'eu_central_bank'
+gem 'sidekiq'
+

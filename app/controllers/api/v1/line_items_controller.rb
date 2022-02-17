@@ -21,6 +21,29 @@ class Api::V1::LineItemsController < ApplicationController
   end
 
 
+  def add_to_cart
+    # Find associated product and current cart
+    chosen_product = Api::V1::Product.find(params[:product_id])
+    current_cart = @current_cart
+
+    # If cart already has this product then find the relevant line_item and iterate quantity otherwise create a new line_item for this product
+    if current_cart.products.include?(chosen_product)
+      # Find the line_item with the chosen_product
+      @api_v1_line_item = current_cart.line_items.find_by(:product_id => chosen_product)
+      # Iterate the line_item's quantity by one
+      @api_v1_line_item.quantity += params[:quantity].to_i
+    else
+      @api_v1_line_item = Api::V1::LineItem.new(:cart_id => current_cart.id,:product_id => chosen_product.id, :quantity => params[:quantity])
+    end
+
+    # Save and redirect to cart show path
+    @api_v1_line_item.save
+
+    @api_v1_line_items = Api::V1::LineItem.where(:cart_id => current_cart.id)
+    render json: @api_v1_line_items
+  end
+
+
 
   # POST /api/v1/line_items or /api/v1/line_items.json
    def create

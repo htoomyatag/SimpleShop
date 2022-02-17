@@ -18,7 +18,15 @@ require 'eu_central_bank'
     Money.new(order_total,currency_code).exchange_to('USD')
   end
 
-  def purchase
+ 
+
+  def payment
+
+
+    @order = Api::V1::Order.find(params[:order_id])
+    first_name = @order.first_name
+    last_name = @order.last_name
+    order_total = @order.order_total
 
     # Use the TrustCommerce test servers
     ActiveMerchant::Billing::Base.mode = :test
@@ -28,15 +36,15 @@ require 'eu_central_bank'
                 :password => 'password')
 
     # ActiveMerchant accepts all amounts as Integer values in cents
-    order_total = (params[:order_total].to_f*100).to_i
+    order_total = (order_total*100).to_i
     currency_code = params[:currency_code]
     amount_in_usd = exchange_currency(order_total,currency_code)
  
   
     # The card verification value is also known as CVV2, CVC2, or CID
     credit_card = ActiveMerchant::Billing::CreditCard.new(
-                    :first_name         =>  params[:first_name],
-                    :last_name          =>  params[:last_name],
+                    :first_name         =>  first_name,
+                    :last_name          =>  last_name,
                     :number             =>  params[:number],
                     :month              =>  params[:month],
                     :year               =>  params[:year],
@@ -49,10 +57,11 @@ require 'eu_central_bank'
 
       if response.success?
         puts "Successfully charged $#{amount_in_usd} to the credit card #{credit_card.display_number}"
-        # @order = Api::V1::Order.find(params[:order_id])
-        # @order.payment_status = "paid"
+        order_id = @order.id
+        HardJob.set(wait: 60.seconds).perform_later(order_id)
+        puts "dfffffffffffffffffffffffffff"++@order.id.to_s
         # @order.paid_at = Time.now
-        # @order.save.set(wait: 1.minute).perform_later
+        # @order.save
       else
         raise StandardError, response.message
       end

@@ -1,5 +1,6 @@
 class Api::V1::OrdersController < ApplicationController
-
+  before_action :authenticate_user!
+  before_action :is_admins?, only: [:index,:create,:remove,:update_order]
   skip_before_action :verify_authenticity_token
 
   def add_to_order
@@ -18,7 +19,7 @@ class Api::V1::OrdersController < ApplicationController
     Api::V1::Cart.destroy(session[:cart_id])
     session[:cart_id] = nil
     render json: @api_v1_order
-end
+  end
 
 
   def calculate_total_amount(cart)
@@ -34,6 +35,45 @@ end
         end
         return sum
   end
+
+  def show
+    @order = Api::V1::Order.find(params[:id])
+    render json: @order
+  end
+
+
+  def create
+    @order = Api::V1::Order.new(api_v1_order_params)
+    @order.save
+    redirect_to api_v1_orders_path
+  end
+
+
+  def update_order
+    order = Api::V1::Order.find(params[:id])
+    order.first_name = params[:first_name]
+    order.last_name = params[:last_name]
+    order.shipping_address = params[:shipping_address]
+    order.order_total = params[:order_total]
+    order.paid_at = params[:paid_at]
+    order.payment_status = params[:payment_status]
+    order.save
+    render json: order
+  end
+
+  def remove
+    @order = Api::V1::Order.find(params[:id])
+    @order.delete
+    @orders = Api::V1::Order.all
+    render json: @orders
+  end
+
+
+  def index
+    @orders = Api::V1::Order.all
+    render json: @orders
+  end
+
 
 
 

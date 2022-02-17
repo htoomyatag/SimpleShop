@@ -47,7 +47,14 @@ Rails.application.routes.draw do
         post 'remove_product_in_cart' => "line_items#remove_product_in_cart"
         #customer products in CART to ORDER
         post 'add_to_order' => "orders#add_to_order"
-     
+        #customer view his order
+        get 'order', to: 'orders#show', as: 'order'
+
+        #Admin CRUD orders
+        get 'orders' => "orders#index"
+        post 'orders' => "orders#create"
+        delete "remove_orders" => "orders#remove", as: 'remove_orders'
+        put "update_order" => "orders#update_order", as: 'update_order'
 
 
     end

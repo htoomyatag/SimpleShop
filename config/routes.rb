@@ -16,7 +16,6 @@ Rails.application.routes.draw do
 
  
 
-        resources :products
         resources :orders
         resources :line_items
     
@@ -49,7 +48,8 @@ Rails.application.routes.draw do
         post 'add_stores' => "stores#create"
         delete "remove_stores" => "stores#remove"
 
-        #For PRODUCT LIST/CREATE/DELETE
+        #For PRODUCT SHOW/LIST/CREATE/DELETE
+        get 'product', to: 'products#show', as: 'product'
         get 'products' => "products#index"
         post 'add_products' => "products#create"
         delete "remove_products" => "products#remove"

@@ -3,6 +3,11 @@ class Api::V1::ProductsController < ApplicationController
   # before_action :is_admins?
   skip_before_action :verify_authenticity_token
 
+  def show
+    @product = Api::V1::Product.find(params[:id])
+    render json: @product
+  end
+
   def index
     @products = Api::V1::Product.all
     render json: @products

@@ -1,3 +1,3 @@
 class Api::V1::Country < ApplicationRecord
-		has_many :regions
+	has_many :regions
 end

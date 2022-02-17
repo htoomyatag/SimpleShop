@@ -39,6 +39,11 @@ Rails.application.routes.draw do
         get 'taxes' => "taxes#index"
         post 'add_taxes' => "taxes#create"
         delete "remove_taxes" => "taxes#remove"
+
+        #For REGION LIST/CREATE/DELETE
+        get 'regions' => "regions#index"
+        post 'add_regions' => "regions#create"
+        delete "remove_regions" => "regions#remove"
      
 
 

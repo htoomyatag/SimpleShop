@@ -11,13 +11,13 @@ class Api::V1::TaxesController < ApplicationController
   def create
     @tax = Api::V1::Tax.new(tax_params)
     @tax.save
-    redirect_to api_v1_taxes_path
+    render json: { message: 'Created' }
   end
 
   def remove
-     @taxes = Api::V1::Tax.where(:tax_rate => params[:rate])
-     @taxes.delete_all
-     render json: { message: "#{params[:rate]} Tax removed" }
+     @tax = Api::V1::Tax.find(params[:id])
+     @tax.delete_all
+     render json: { message: 'Deleted' }
   end
 
   private

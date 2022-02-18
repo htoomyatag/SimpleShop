@@ -14,15 +14,15 @@ class Api::V1::ProductsController < ApplicationController
   end
 
   def create
-    @store = Api::V1::Product.new(product_params)
-    @store.save
-    redirect_to api_v1_produts_path
+    @product = Api::V1::Product.new(product_params)
+    @product.save
+    render json: { message: 'Created' }
   end
 
   def remove
-     @products = Api::V1::Product.where(:title => params[:name])
+     @products = Api::V1::Product.find(params[:id])
      @products.delete_all
-     render json: { message: "#{params[:name]} store removed" }
+     render json: { message: 'Removed' }
   end
 
   private

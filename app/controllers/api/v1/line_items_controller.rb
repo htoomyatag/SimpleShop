@@ -17,8 +17,7 @@ class Api::V1::LineItemsController < ApplicationController
       @line_item = Api::V1::LineItem.new(:cart_id => current_cart.id,:product_id => chosen_product.id, :quantity => params[:quantity])
     end
     @line_item.save
-    @line_items = Api::V1::LineItem.where(:cart_id => current_cart.id)
-    render json: @line_items
+    render json: { message: 'Added to cart' }
   end
 
   def add_quantity
@@ -26,8 +25,7 @@ class Api::V1::LineItemsController < ApplicationController
       @line_item = Api::V1::LineItem.find(params[:id])
       @line_item.quantity += 1
       @line_item.save
-      @line_items = Api::V1::LineItem.where(:cart_id => current_cart)
-      render json: @line_item
+      render json: { message: 'Added Qty' }
   end
 
   def reduce_quantity
@@ -37,19 +35,23 @@ class Api::V1::LineItemsController < ApplicationController
       @line_item.quantity -= 1
     end
     @line_item.save
-    render json: @line_item
+    render json: { message: 'Reduced Qty' }
   end
 
   def remove_allproduct_in_cart
       all_product_in_cart = Api::V1::LineItem.where(:cart_id => params[:cart_id])
       all_product_in_cart.delete_all
-     render json: { message: "all items in cart has been removed" }
+     render json: { message: "All items in cart has been removed" }
   end
 
 
   def remove_product_in_cart
       desire_product = Api::V1::LineItem.where(:product_id => params[:product_id]).where(:cart_id => params[:cart_id])
       desire_product.delete_all
+      render json: { message: "An item in cart has been removed" }
+  end
+
+  def index
       @line_items = Api::V1::LineItem.where(:cart_id => params[:cart_id])
       render json: @line_items
   end

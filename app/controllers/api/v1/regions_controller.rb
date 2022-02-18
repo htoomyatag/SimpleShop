@@ -11,13 +11,13 @@ class Api::V1::RegionsController < ApplicationController
   def create
     @region = Api::V1::Region.new(region_params)
     @region.save
-    redirect_to api_v1_regions_path
+    render json: { message: 'Created' }
   end
 
   def remove
-     @regions = Api::V1::Region.where(:title => params[:name])
+     @regions = Api::V1::Region.find(params[:id])
      @regions.delete_all
-     render json: { message: "#{params[:name]} region removed" }
+    render json: { message: 'Removed' }
   end
 
   private

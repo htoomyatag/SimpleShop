@@ -11,13 +11,13 @@ class Api::V1::CountriesController < ApplicationController
   def create
     @country = Api::V1::Country.new(country_params)
     @country.save
-    redirect_to api_v1_countries_path
+    render json: { message: 'Created' }
   end
 
   def remove
-     @countries = Api::V1::Country.where(:title => params[:name])
-     @countries.delete_all
-     render json: { message: "#{params[:name]} country removed" }
+     @country = Api::V1::Country.find(params[:id])
+     @country.delete_all
+     render json: { message: 'Deleted' }
   end
 
   private

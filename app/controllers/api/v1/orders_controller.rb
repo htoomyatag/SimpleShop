@@ -18,7 +18,7 @@ class Api::V1::OrdersController < ApplicationController
     @api_v1_order.save
     Api::V1::Cart.destroy(session[:cart_id])
     session[:cart_id] = nil
-    render json: @api_v1_order
+    render json: { message: 'Added' }
   end
 
 
@@ -45,7 +45,7 @@ class Api::V1::OrdersController < ApplicationController
   def create
     @order = Api::V1::Order.new(api_v1_order_params)
     @order.save
-    render json: @order
+    render json: { message: 'Created' }
   end
 
 
@@ -58,13 +58,13 @@ class Api::V1::OrdersController < ApplicationController
     order.paid_at = params[:paid_at]
     order.payment_status = params[:payment_status]
     order.save
-    render json: order
+    render json: { message: 'Updated' }
   end
 
   def remove
     @order = Api::V1::Order.find(params[:id])
     @order.delete
-    render json: @order
+    render json: { message: 'Removed' }
   end
 
 
@@ -72,9 +72,6 @@ class Api::V1::OrdersController < ApplicationController
     @orders = Api::V1::Order.all
     render json: @orders
   end
-
-
-
 
 
   private

@@ -11,13 +11,13 @@ class Api::V1::CurrenciesController < ApplicationController
   def create
     @currency = Api::V1::Currency.new(country_params)
     @currency.save
-    redirect_to api_v1_currencies_path
+    render json: { message: 'Created' }
   end
 
   def remove
-     @currencies = Api::V1::Currency.where(:title => params[:name])
-     @currencies.delete_all
-     render json: { message: "#{params[:name]} currency removed" }
+     @currency = Api::V1::Currency.find(params[:id])
+     @currency.delete_all
+     render json: { message: 'Deleted' }
   end
 
   private

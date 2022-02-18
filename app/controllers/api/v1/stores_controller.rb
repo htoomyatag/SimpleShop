@@ -11,13 +11,13 @@ class Api::V1::StoresController < ApplicationController
   def create
     @store = Api::V1::Store.new(store_params)
     @store.save
-    redirect_to api_v1_stores_path
+    render json: { message: 'Created' }
   end
 
   def remove
-     @stores = Api::V1::Store.where(:title => params[:name])
+     @stores = Api::V1::Store.find(params[:id])
      @stores.delete_all
-     render json: { message: "#{params[:name]} store removed" }
+     render json: { message: 'Removed' }
   end
 
   private

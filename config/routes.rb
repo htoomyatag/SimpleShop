@@ -45,6 +45,8 @@ Rails.application.routes.draw do
         post 'remove_allproduct_in_cart' => "line_items#remove_allproduct_in_cart"
         #Customer REMOVE ONE PRODUCES FROM CART
         post 'remove_product_in_cart' => "line_items#remove_product_in_cart"
+        #For ITEM list in cart
+        get 'line_items' => "line_items#index"
         #customer products in CART to ORDER
         post 'add_to_order' => "orders#add_to_order"
         #customer view his order

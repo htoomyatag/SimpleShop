@@ -8,16 +8,23 @@ class Api::V1::LineItemsController < ApplicationController
     chosen_product = Api::V1::Product.find(params[:product_id])
     current_cart = @current_cart
 
-    # If cart already has this product then find the relevant line_item and iterate quantity otherwise create a new line_item for this product
-    if current_cart.products.include?(chosen_product)
-      # Find the line_item with the chosen_product
-      @line_item = current_cart.line_items.find_by(:product_id => chosen_product)
-      @line_item.quantity += params[:quantity].to_i
+    if chosen_product.stock > params[:quantity].to_i-1
+
+        # If cart already has this product then find the relevant line_item and iterate quantity otherwise create a new line_item for this product
+        if current_cart.products.include?(chosen_product)
+          # Find the line_item with the chosen_product
+          @line_item = current_cart.line_items.find_by(:product_id => chosen_product)
+          @line_item.quantity += params[:quantity].to_i
+        else
+          @line_item = Api::V1::LineItem.new(:cart_id => current_cart.id,:product_id => chosen_product.id, :quantity => params[:quantity])
+        end
+        @line_item.save
+        chosen_product.stock = chosen_product.stock-params[:quantity].to_i
+        chosen_product.save
+        render json: { message: 'Added to cart' }
     else
-      @line_item = Api::V1::LineItem.new(:cart_id => current_cart.id,:product_id => chosen_product.id, :quantity => params[:quantity])
+        render json: { message: 'Out of stock' }
     end
-    @line_item.save
-    render json: { message: 'Added to cart' }
   end
 
   def add_quantity

@@ -160,3 +160,4 @@ FOR ADMIN CRUD ORDERS
 --------------------------------------------------------
 under /public folder api_doc.pdf is an **API DOCUMENTATION **
 with POST MAN UI.
+https://github.com/htoomyatag/SimpleShop/blob/main/public/postman_api.pdf

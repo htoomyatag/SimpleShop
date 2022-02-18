@@ -16,7 +16,7 @@ class Api::V1::CountriesController < ApplicationController
 
   def remove
      @country = Api::V1::Country.find(params[:id])
-     @country.delete_all
+     @country.delete
      render json: { message: 'Deleted' }
   end
 

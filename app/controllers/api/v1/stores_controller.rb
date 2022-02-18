@@ -16,7 +16,7 @@ class Api::V1::StoresController < ApplicationController
 
   def remove
      @stores = Api::V1::Store.find(params[:id])
-     @stores.delete_all
+     @stores.delete
      render json: { message: 'Removed' }
   end
 

@@ -16,7 +16,7 @@ class Api::V1::TaxesController < ApplicationController
 
   def remove
      @tax = Api::V1::Tax.find(params[:id])
-     @tax.delete_all
+     @tax.delete
      render json: { message: 'Deleted' }
   end
 

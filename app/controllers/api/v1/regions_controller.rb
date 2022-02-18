@@ -16,7 +16,7 @@ class Api::V1::RegionsController < ApplicationController
 
   def remove
      @regions = Api::V1::Region.find(params[:id])
-     @regions.delete_all
+     @regions.delete
     render json: { message: 'Removed' }
   end
 

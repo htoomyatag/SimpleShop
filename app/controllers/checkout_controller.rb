@@ -28,9 +28,9 @@ require 'eu_central_bank'
 
     # ActiveMerchant accepts all amounts as Integer values in cents
     order_total = (order_total*100).to_i
+
     currency_code = params[:currency_code]
     amount_in_usd = exchange_currency(order_total,currency_code)
- 
   
     # The card verification value is also known as CVV2, CVC2, or CID
     credit_card = ActiveMerchant::Billing::CreditCard.new(
@@ -47,6 +47,7 @@ require 'eu_central_bank'
       response = gateway.purchase(amount_in_usd, credit_card)
 
       if response.success?
+        render json: { message: "#{amount_in_usd} Successfully charged to the credit card" }
         puts "Successfully charged $#{amount_in_usd} to the credit card #{credit_card.display_number}"
         order_id = @order.id
         @order.paid_at = Time.now

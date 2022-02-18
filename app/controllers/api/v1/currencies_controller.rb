@@ -16,7 +16,7 @@ class Api::V1::CurrenciesController < ApplicationController
 
   def remove
      @currency = Api::V1::Currency.find(params[:id])
-     @currency.delete_all
+     @currency.delete
      render json: { message: 'Deleted' }
   end
 

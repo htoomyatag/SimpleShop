@@ -9,6 +9,7 @@ class Api::V1::OrdersController < ApplicationController
      last_name = params[:last_name]
      shipping_address = params[:shipping_address]
      total_amount = calculate_total_amount(params[:cart_id])
+ 
 
     @api_v1_order = Api::V1::Order.new(:first_name => first_name,:last_name => last_name,:shipping_address => shipping_address,:order_total => total_amount.round(2))
     @current_cart.line_items.each do |item|
@@ -25,15 +26,18 @@ class Api::V1::OrdersController < ApplicationController
   def calculate_total_amount(cart)
      
      sum = 0
-        Api::V1::LineItem.where(:cart_id=>1).each do |line_item|
+        Api::V1::LineItem.where(:cart_id=>@current_cart.id).each do |line_item|
           #calcualte tax rate for product
           tax_rate = line_item.product.region.tax.tax_rate * line_item.product.price
+     
           #plus product value with tax
           product_price_with_tax = tax_rate + line_item.product.price
+      
           #total product value
           sum+= line_item.quantity * product_price_with_tax
         end
         return sum
+     
   end
 
   def show

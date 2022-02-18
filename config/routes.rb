@@ -62,7 +62,7 @@ Rails.application.routes.draw do
 
   post 'checkout/payment'
   
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
   devise_for :users, controllers: {sessions: 'users/sessions',registrations: 'users/registrations'}
   post 'change_password' => "users#change_password"
   post 'change_email' => "users#change_email"

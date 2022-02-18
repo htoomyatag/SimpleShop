@@ -66,8 +66,8 @@ Rails.application.routes.draw do
   
 
   devise_for :users, controllers: {sessions: 'users/sessions',registrations: 'users/registrations'}
-  post 'change_password' => "users#change_password"
-  post 'change_email' => "users#change_email"
+  post 'user/change_password' => "users#change_password"
+  post 'user/change_email' => "users#change_email"
 
 
 

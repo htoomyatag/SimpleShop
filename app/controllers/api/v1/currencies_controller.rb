@@ -1,6 +1,6 @@
 class Api::V1::CurrenciesController < ApplicationController
-  # before_action :authenticate_user!
-  # before_action :is_admins?
+  before_action :authenticate_user!
+  before_action :is_admins?
   skip_before_action :verify_authenticity_token
 
   def index

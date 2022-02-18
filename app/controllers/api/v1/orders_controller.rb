@@ -1,6 +1,6 @@
 class Api::V1::OrdersController < ApplicationController
-  # before_action :authenticate_user!
-  # before_action :is_admins?, only: [:index,:create,:remove,:update_order]
+  before_action :authenticate_user!
+  before_action :is_admins?, only: [:index,:create,:remove,:update_order]
   skip_before_action :verify_authenticity_token
 
   def add_to_order

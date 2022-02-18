@@ -21,7 +21,9 @@ class UsersController < ApplicationController
 
   def change_email
       
-      @user = User.find_by_email(current_user.email)
+      
+       @user = User.find_by_email(current_user.email)
+     
          
            if current_user.id == @user.id
 

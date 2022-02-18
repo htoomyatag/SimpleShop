@@ -1,6 +1,6 @@
 class Api::V1::OrdersController < ApplicationController
-  before_action :authenticate_user!
-  before_action :is_admins?, only: [:index,:create,:remove,:update_order]
+  # before_action :authenticate_user!
+  # before_action :is_admins?, only: [:index,:create,:remove,:update_order]
   skip_before_action :verify_authenticity_token
 
   def add_to_order
@@ -45,7 +45,7 @@ class Api::V1::OrdersController < ApplicationController
   def create
     @order = Api::V1::Order.new(api_v1_order_params)
     @order.save
-    redirect_to api_v1_orders_path
+    render json: @order
   end
 
 
@@ -64,8 +64,7 @@ class Api::V1::OrdersController < ApplicationController
   def remove
     @order = Api::V1::Order.find(params[:id])
     @order.delete
-    @orders = Api::V1::Order.all
-    render json: @orders
+    render json: @order
   end
 
 

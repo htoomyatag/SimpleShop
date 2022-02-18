@@ -19,6 +19,17 @@ FactoryBot.define do
   end
 
 
+  status = ["Paid", "Unpaid"]
+  factory :random_orders, class: Api::V1::Order do
+    first_name { Faker::Name.first_name  }
+    last_name { Faker::Name.last_name  }
+    shipping_address { Faker::Address.street_address }
+    order_total { Faker::Number.decimal(l_digits: 2) }
+    paid_at { Faker::Date.between(from: 2.days.ago, to: Date.today)}
+    payment_status { status.sample }
+  end
+
+
 
 
 end

@@ -328,7 +328,7 @@ Both users can
 -   Sign up
 -   Sign in
 -   Sign out
--   Change password/
+-   Change password
 -   Change email
 
 
